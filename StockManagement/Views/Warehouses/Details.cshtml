@@ -1,0 +1,50 @@
+﻿@model StockManagement.Models.tblWarehouse
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Warehouse</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.warehouseNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.warehouseNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.warehouseName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.warehouseName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.warehouseManager)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.warehouseManager)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.warehouseID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-info" })
+</p>

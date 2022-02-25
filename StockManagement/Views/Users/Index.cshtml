@@ -1,0 +1,60 @@
+﻿@model IEnumerable<StockManagement.Models.tblUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="col-sm-12">
+    <a href="/Users/Create" class="btn btn-info "><i class="fa fa-plus"></i> New User</a>
+</div>
+<hr />
+<br /><br />
+@{
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table border="1" class="table table-bordered table-hover table-striped table-responsive">
+                            <tr style="font-size:16px">
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Username)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserPass)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UserType)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Username)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserPass)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UserType)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" Edit", "Edit", new { id = item.UserID }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                        @Html.ActionLink(" Details", "Details", new { id = item.UserID }, new { @class = "btn btn-success fa fa-info" }) |
+                                        @Html.ActionLink(" Delete", "Delete", new { id = item.UserID }, new { @class = "btn btn-danger fa fa-trash-o" }) |
+                                        @Html.ActionLink(" User Role", "UserRole", new { userId = item.UserID }, new { @class = "btn btn-warning fa fa-check-square-o" })
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+}

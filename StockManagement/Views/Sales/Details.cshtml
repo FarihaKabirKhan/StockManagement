@@ -1,0 +1,122 @@
+﻿@model StockManagement.Models.tblSale
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblSale</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.rate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.rate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.totalPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.totalPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.purchaseDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.purchaseDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.discount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.discount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.netTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.netTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.transactionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transactionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.transactionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.transactionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoiceNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoiceNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblCustomer.customerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblCustomer.customerName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblProduct.productName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblProduct.productName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.salesID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

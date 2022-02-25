@@ -1,0 +1,143 @@
+﻿@model StockManagement.Models.tblPurchase
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+        <div id="boxDivId" class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="text-align:center">
+                    <span style="clear:both;">
+                        <b>
+                            Purchase : New Purchase
+                        </b>
+                    </span>
+                </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.productID, "productID", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.DropDownList("productID", null, htmlAttributes: new { @class = "form-control", @id = "pID", onchange = "getPrice()" })
+                            @Html.ValidationMessageFor(model => model.productID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.supplierID, "supplierID", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("supplierID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.supplierID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.warehouseID, "warehouseID", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("warehouseID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.warehouseID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Purchase Price</label>
+                            @Html.EditorFor(model => model.purchasePrice, new { htmlAttributes = new { @class = "form-control", @id = "price", @readonly = "readonly", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.purchasePrice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Quantity</label>
+                            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @id = "qty", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Total Price</label>
+                            @Html.EditorFor(model => model.totalPrice, new { htmlAttributes = new { @class = "form-control", @id = "total", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.totalPrice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Purchase Date</label>
+                            @Html.EditorFor(model => model.purchaseDate, new { htmlAttributes = new { @class = "form-control", @id = "total", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Description</label>
+                            @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/Purchases/Index"><span> Back</span></a>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <button class="form-group btn btn-primary btn-block" value="Create" type="submit" id="btnPRsave">
+                            <i class="fa fa-plus"></i>
+                            <span>Create Purchase</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    function getTotal() {
+
+        var price = document.getElementById("price").value;
+        var qty = document.getElementById("qty").value;
+        var total = price * qty;
+        document.getElementById("total").value = total;
+    }
+
+    //For Price Show
+    function getPrice() {
+        var ProductID = $('#pID').val()
+
+        /*alert(ProductID)*/
+        $.ajax({
+            type: "POST",
+            url: "/Purchases/GetPrice",
+            datatype: "Json",
+            data: { productID: ProductID },
+            success: function (data) {
+                /*alert(data);*/
+                $('#price').val(data);
+            }
+        });
+    }
+
+</script>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<StockManagement.Models.tblStock>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+<br />
+<br />
+@*<p>
+        @Html.ActionLink("Create New", "Create", "Stocks", new { }, new { @class = "btn btn-primary" })
+    </p>
+    <br />
+    <br />*@
+<div class="box box-primary">
+    <div class="box-body">
+        <table border="1" class="table table-bordered table-hover cell-border table-striped table-responsive">
+            <tr style="font-size:16px">
+                <th>
+                    @Html.DisplayNameFor(model => model.tblProduct.productName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.status)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tblPurchase.description)
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tblProduct.productName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tblPurchase.description)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink(" Edit", "Edit", new { id = item.stockID }, new { @class = "btn btn-primary fa fa-pencil" }) |*@
+                        @Html.ActionLink(" Details", "Details", new { id = item.stockID }, new { @class = "btn btn-info fa fa-info" }) |
+                        @Html.ActionLink(" Delete", "Delete", new { id = item.stockID }, new { @class = "btn btn-danger fa fa-trash-o" })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

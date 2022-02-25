@@ -1,0 +1,73 @@
+﻿@model StockManagement.Models.tblProduct
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.purchasePrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.purchasePrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.salesPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.salesPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblProductCategory.categoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblProductCategory.categoryName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-info" })
+</div>
+    }
+</div>

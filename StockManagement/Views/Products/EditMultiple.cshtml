@@ -1,0 +1,75 @@
+﻿@model StockManagement.ViewModels.VmCategoryWiseProduct
+@{
+    ViewBag.Title = "EditMultiple";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Product</h2>
+<div>
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-info" })
+</div><br />
+
+@using (Html.BeginForm("EditMultiple", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            Category
+            <select id="categoryID" name="categoryID" required class="dropdown-trigger btn">
+                @foreach (var item in Model.CategoryList)
+                {
+                    var Selected = item.categoryID == Model.categoryID ? "selected" : "";
+                    <option value="@item.categoryID" @Selected>@item.categoryName</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <div id="ProData" class="Table">
+                <div id="RowData" class="Row">
+                    <input type="hidden" name="productID" />
+                    <input type="text" name="productName" placeholder="ProductName" /><br /><br />
+                    <input type="text" name="status" placeholder="status" /><br /><br />
+                    <input type="text" name="purchasePrice" placeholder="purchasePrice" /><br /><br />
+                    <input type="text" name="salesPrice" placeholder="salesPrice" /><br /><br />
+
+                    <input type="file" name="imgFile" placeholder="imgFile" />
+                    <a id="addRow" href="#" class="btn btn-xs btn-success"><i>+</i></a><hr />
+                </div>
+                @foreach (var item in Model.ProductList)
+                {
+                    //var ExpireDate = item.ExpireDate == null ? "" : Convert.ToDateTime(item.ExpireDate).ToString("yyyy-MM-dd");
+            <div id="RowData" class="Row">
+                <input type="hidden" name="productId" value="@item.productID" />
+                <input type="text" name="productName" placeholder="ProductName" value="@item.productName" /><br /><br />
+                <input type="text" name="status" placeholder="status" value="@item.status" /><br /><br />
+                <input type="text" name="purchasePrice" placeholder="purchasePrice" value="@item.purchasePrice" /><br /><br />
+                <input type="text" name="salesPrice" placeholder="salesPrice" value="@item.salesPrice" /><br /><br />
+                <input type="file" name="imgFile" placeholder="imgFile" /><br />
+                <a id="deleteRow" href="#" class="btn btn-xs btn-danger"><i>-</i></a>
+                <img src="@item.ImagePath" style="width:150px" />
+                <hr />
+            </div>
+                }
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Update" class="btn btn-success btn-lg">
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script>
+
+    $('#addRow').on('click', function () {
+        $('#ProData').append('<div id="RowData" class="Row"> <input type="text" name="productName" placeholder="productName" /> <input type="text" name="status" placeholder="status" /><input type="text" name="purchasePrice" placeholder="PurchasePrice" /><br><br> <input type="text" name="salesPrice" placeholder="salesPrice" /><br><br><input type="file" name="imgFile" placeholder="imgFile" /><a id="deleteRow" href="#" class="btn btn-xs btn-danger"><i>-</i></a><hr /></div>');
+        $('#ProData').addClass();
+        return false;
+    });
+    $('#ProData').on('click', '#deleteRow', function () {
+        $(this).parent().remove();
+        return false;
+    });
+</script>

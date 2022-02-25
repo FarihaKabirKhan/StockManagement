@@ -1,0 +1,90 @@
+﻿@model IEnumerable<StockManagement.Models.tblPurchase>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+<br />
+<br />
+<div class="col-md-12">
+    @Html.ActionLink(" New Purchase", "Create", "Purchases", new { }, new { @class = "btn btn-primary  fa fa-plus" })
+</div>
+<br />
+<br />
+<div>
+    <div class="box box-primary">
+        <div class="box-body">
+            <table border="1" class="table table-bordered table-hover table-striped table-condensed">
+                <tr style="font-size:14px">
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblProduct.productName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.purchasePrice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.totalPrice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.purchaseDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblSupplier.supplierName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.tblWarehouse.warehouseName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.description)
+                    </th>
+                    <th>Action</th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblProduct.productName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.purchasePrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.totalPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.purchaseDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblSupplier.supplierName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tblWarehouse.warehouseName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.description)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" Edit", "Edit", new { id = item.purchaseID }, new { @class = "btn btn-primary d-inline fa fa-pencil" }) |
+                            @Html.ActionLink(" Details", "Details", new { id = item.purchaseID }, new { @class = "btn btn-info d-inline fa fa-info" })|
+                            @Html.ActionLink(" Delete", "Delete", new { id = item.purchaseID }, new { @class = "btn btn-danger fa fa-trash-o" })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+ </div>

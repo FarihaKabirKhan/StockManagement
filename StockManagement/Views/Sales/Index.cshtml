@@ -1,0 +1,121 @@
+﻿@model IEnumerable<StockManagement.Models.tblSale>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+<br />
+<br />
+<div class="col-sm-12">
+    @Html.ActionLink(" New Sale", "Create", "Sales", new { }, new { @class = "btn btn-primary  fa fa-plus" })
+</div>
+<hr />
+<br />
+<div>
+     @ViewBag.message
+</div>
+    <div class="table-responsive dataTables_scroll">
+        <div class="box box-primary">
+            <div class="box-body">
+                <table border="1" class="table table-bordered table-hover table-striped table-condensed">
+                    <tr style="font-size:14px">
+                        <th>
+                            @Html.DisplayNameFor(model => model.productStatus)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.rate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.totalPrice)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.purchaseDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.vat)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.discount)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.netTotal)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.transactionType)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.transactionDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.invoiceNo)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tblCustomer.customerName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.tblProduct.productName)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.productStatus)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.rate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.totalPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.purchaseDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.vat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.discount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.netTotal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.transactionType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.transactionDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.invoiceNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblCustomer.customerName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.tblProduct.productName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.salesID }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.salesID }, new { @class = "btn btn-info fa fa-info" }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.salesID }, new { @class = "btn btn-danger fa fa-trash-o" }) |
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+    </div>

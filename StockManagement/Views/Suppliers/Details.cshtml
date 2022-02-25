@@ -1,0 +1,58 @@
+﻿@model StockManagement.Models.tblSupplier
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Supplier</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.supplierName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.supplierName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mobileNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mobileNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.managerName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.managerName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.supplierID }, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-info" })
+</p>

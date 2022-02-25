@@ -1,0 +1,92 @@
+﻿@model IEnumerable<StockManagement.Models.tblCustomer>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div>
+    @using (Html.BeginForm("Index", "Customers", FormMethod.Get))
+    {
+        <b>Search By:</b> @Html.RadioButton("searchBy", "customerName", true) <text>Customer Name</text>
+        @Html.RadioButton("searchBy", "email") <text>Email</text>
+        <div class="pull-right">
+            @Html.TextBox("search", null, new { id = "txtSearch", placeholder = "Search.." })
+            <button type="submit" value="Search" style="background: #2196F3; color: white; font-size: 17px; border: 1px solid grey; border-left: none; "><i class="fa fa-search"></i></button>
+        </div>
+    }
+</div>
+<br /><br />
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+<br />
+
+@*<p>
+    @Html.ActionLink("Create New", "Create", "Customers", new { }, new { @class = "btn btn-primary" })
+</p>*@
+<br />
+
+<div class="col-sm-12"> 
+    <a href="/Customers/Create" id="createCustomer" class="btn btn-info "><i class="fa fa-plus"></i> New Customer</a>
+</div>
+<hr />
+
+@{
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table class="table table-hover table-bordered cell-border" cellpadding="2" cellspacing="2">
+                            <thead>
+                                <tr style="font-size:16px">
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.customerName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.customerAddress)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.email)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.phoneNumber)
+                                    </th>
+                                    <th>
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.customerName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.customerAddress)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.phoneNumber)
+                                        </td>
+
+                                        <td>
+                                            @Html.ActionLink(" Edit", "Edit", new { id = item.customerID }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                            @Html.ActionLink(" Details", "Details", new { id = item.customerID }, new { @class = "btn btn-success fa fa-info" }) |
+                                            @Html.ActionLink(" Delete", "Delete", new { id = item.customerID }, new { @class = "btn btn-danger fa fa-trash-o" })
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,112 @@
+﻿
+@model StockManagement.ViewModels.VmCategoryWiseProduct
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+<br /><br />
+
+<div class="row">
+    <div class="col-s pull-s">
+        <h4 style="font-weight:bold;">Category Brand</h4>
+        <p>
+            <a href="/Products/Create" class="btn btn-sm btn-primary fa fa-plus"> Create New</a>
+        </p>
+        <table border="1" class="table table-bordered table-hover table-striped table-responsive">
+            <tr style="font-size:16px">
+                <th>
+                    Category
+                </th>
+                @*<th>
+                        Avaiable Proudct
+                    </th>*@
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.CategoryList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.categoryName)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>*@
+                    <td>
+                        <a href="/Products/Index?id=@item.categoryID" class="btn btn-sm btn-info fa fa-info"> Details</a> |
+                        <a href="/Products/EditMultiple?id=@item.categoryID" class="btn btn-sm btn-success fa fa-pencil"> Edit</a>
+                        <a href="/Products/DeleteMultiple?id=@item.categoryID" class="btn btn-sm btn-danger fa fa-trash-o" onclick="return confirm('Are you sure to delete this category with products?')"> Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="col-s7 push-s">
+        <h4 style="font-weight:bold;">Prdoucts of @Model.categoryName</h4>
+        <p>
+            <a href="/Products/Create" class="btn btn-sm btn-primary fa fa-plus">Create New</a>
+        </p>
+        <table border="1" class="table table-bordered table-hover table-striped table-condensed">
+            <tr style="font-size:16px">
+                <th>
+                    Category
+                </th>
+                <th>
+                    Product
+                </th>
+                <th>
+                    Purchase Price
+                </th>
+                <th>
+                    Sales Price
+                </th>
+                <th>
+                    Status
+                </th>
+                @*<th>
+                        Quantity
+                    </th>*@
+                <th>
+                    Product Photo
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model.ProductList)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.categoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.productName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.purchasePrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.salesPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>*@
+                    <td>
+                        <img src="@item.ImagePath" style="height:150px" />
+                    </td>
+                    <td>
+                        <a href="/Products/Edit?id=@item.productID" class="btn btn-sm btn-warning fa fa-pencil"> Edit</a> |
+                        <a href="/Products/Delete?id=@item.productID" class="btn btn-sm btn-danger fa fa-trash-o" onclick="return confirm('Are you sure to delete this product?')"> Delete</a>
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>

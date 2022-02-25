@@ -1,0 +1,78 @@
+﻿@model StockManagement.Models.tblUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+  
+    <div class="col-md-12">
+        <div id="boxDivId" class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="text-align:center">
+                    <span style="clear:both;">
+                        <b>
+                            User Role : User Edit
+                        </b>
+                    </span>
+                </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.UserID)
+
+                            <label>User Name</label>
+                            @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">User Password</label>
+                            @Html.EditorFor(model => model.UserPass, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserPass, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">User Type</label>
+                            @Html.EditorFor(model => model.UserType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/Users/Index"><span> Back</span></a>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <button class="form-group btn btn-primary btn-block" type="submit" value="Save" id="btnPRsave">
+                            <i class="fa fa-plus"></i>
+                            <span>Edit User</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

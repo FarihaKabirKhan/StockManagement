@@ -1,0 +1,90 @@
+﻿@model StockManagement.Models.tblCustomer
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row content-wrapper content">
+    <div class="col-md-8">
+        <div>
+            <section>
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Create New Customer</h3>
+                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <form role="form">
+                            <div class="box-body">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.customerName, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.customerName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerName, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.customerAddress, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.customerAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerAddress, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.phoneNumber, htmlAttributes: new { @class = "control-label" })
+
+                                    @Html.EditorFor(model => model.phoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.phoneNumber, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="box-footer">
+                                <div class="col-lg-4 col-md-4 pull-right">
+                                    <button class="form-group btn btn-primary btn-block " value="Create" type="submit" id="btnPRsave">
+                                        <i class="fa fa-plus"></i>
+                                        <span>Create Customer</span>
+                                    </button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/Customers/Index"><span> Back</span></a>
+                                </div>
+                            </div>
+
+                        </form>
+                    }
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

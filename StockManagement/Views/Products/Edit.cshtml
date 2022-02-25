@@ -1,0 +1,84 @@
+﻿
+@model StockManagement.ViewModels.VmProduct
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    //var ExpireDate = Model.ExpireDate == null ? "" : Convert.ToDateTime(Model.ExpireDate).ToString("yyyy-MM-dd");
+
+}
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="col-md-12">
+    <div id="boxDivId" class="box box-info box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title" style="text-align:center">
+                <span style="clear:both;">
+                    <b>
+                        Product : Edit Product
+                    </b>
+                </span>
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                    <i class="fa fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        Category
+                        <select id="categoryID" name="categoryID" required>
+                            @foreach (var item in Model.CategoryList)
+                            {
+                                var Selected = item.categoryID == Model.categoryID ? "selected" : "";
+                                <option value="@item.categoryID" @Selected>@item.categoryName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div id="ProData" class="Table">
+                            <div id="RowData" class="Row">
+                                <input type="hidden" name="productID" value="@Model.productID" /><br />
+                                <input type="text" name="productName" placeholder="ProductName" value="@Model.productName" /><br /><br />
+                                <input type="text" name="status" placeholder="status" value="@Model.status" /><br /><br />
+                                <input type="text" name="purchasePrice" placeholder="purchasePrice" value="@Model.purchasePrice" /><br /><br />
+                                <input type="text" name="salesPrice" placeholder="SalesPrice" value="@Model.salesPrice" /><br /><br />
+                                <input type="file" name="imgFile" placeholder="imgFile" /><br />
+                                <img src="@Model.ImagePath" style="width:150px" />
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Update" class="btn btn-success btn-lg fa fa-edit">
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-md-2">
+                    <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/Products/Index"><span> Back</span></a>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <button class="form-group btn btn-primary btn-block" value="Save" type="submit" id="btnPRsave">
+                        <i class="fa fa-plus"></i>
+                        <span>Update Products</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+}

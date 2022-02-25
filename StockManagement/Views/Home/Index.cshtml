@@ -1,0 +1,117 @@
+﻿@model StockManagement.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-blue whitecolor">
+            <div class="inner">
+                <h3>@Model.product_count</h3>
+                <p>Total Product</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="/Products/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-red whitecolor">
+            <div class="inner">
+                <h3>@Model.customer_count</h3>
+                <p>Total Customer</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person"></i>
+            </div>
+            <a href="/Customers/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-green whitecolor">
+            <div class="inner">
+                <h3>@Model.supplier_count</h3>
+                <p>Total Supplier</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-users"></i>
+            </div>
+            <a href="/Suppliers/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-aqua whitecolor">
+            <div class="inner">
+                <h3>@Model.warehouse_count</h3>
+                <p>Total Warehouse</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-home"></i>
+            </div>
+            <a href="/Warehouses/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-purple whitecolor">
+            <div class="inner">
+                <h3>@Model.purchase_count</h3>
+                <p>Total Purchase</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-shopping-bag"></i>
+            </div>
+            <a href="/Purchases/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-lime whitecolor">
+            <div class="inner">
+                <h3>@Model.sales_count</h3>
+                <p>Total Sales</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <a href="/Sales/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="small-box bg-orange whitecolor">
+            <div class="inner">
+                <h3>@Model.stock_count</h3>
+                <p>Total Stock</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+            <a href="/Stocks/Index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Morris.js charts -->
+<script src="bower_components/raphael/raphael.min.js"></script>
+<script src="bower_components/morris.js/morris.min.js"></script>
+<script>
+  $(function () {
+    "use strict";
+    //DONUT CHART
+    var donut = new Morris.Donut({
+      element: 'sales-chart',
+      resize: true,
+      colors: ["#3c8dbc", "#f56954", "#00a65a"],
+      data: [
+        {label: "Registered Customer", value: @Model.customer_count},
+        {label: "Registered Product", value: @Model.product_count},
+        { label: "Registered Supplier", value: @Model.supplier_count},
+        { label: "Registered Warehouse", value: @Model.warehouse_count},
+        { label: "Registered Purchase", value: @Model.purchase_count},
+        {label: "Registered Sales", value: @Model.sales_count}
+
+      ],
+      hideHover: 'auto'
+    });
+  });
+</script>

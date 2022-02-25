@@ -1,0 +1,66 @@
+﻿@model List<StockManagement.Models.tblUserRole>
+@{
+    ViewBag.Title = "UserRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SET USER ROLE OF <i>@TempData["Username"]</i></h2>
+<form method="post" action="/Users/UserRole">
+    @Html.AntiForgeryToken()
+    <button type="submit">Submit</button>
+    <table class="table table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>Page</th>
+                <th>Create</th>
+                <th>Read</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" id="tblUserRoles[@i].UserRoleID" name="tblUserRoles[@i].UserRoleID" value="@Model[i].UserRoleID" />
+                        <input type="hidden" id="tblUserRoles[@i].UserID" name="tblUserRoles[@i].UserID" value="@Model[i].UserID" />
+                        <input type="hidden" id="tblUserRoles[@i].PageName" name="tblUserRoles[@i].PageName" value="@Model[i].PageName" />
+                        @Model[i].PageName
+                    </td>
+                    <td>
+                        @{var checkCreate = Model[i].IsCreate == true ? "checked" : "";}
+                        <input type="checkbox" id="tblUserRoles[@i].IsCreate" name="tblUserRoles[@i].IsCreate" value="true" @checkCreate />
+                        <input name="tblUserRoles[@i].IsCreate" type="hidden" value="false" />
+                    </td>
+                    <td>
+                        @{var checkRead = Model[i].IsRead == true ? "checked" : "";}
+                        <input type="checkbox" id="tblUserRoles[@i].IsRead" name="tblUserRoles[@i].IsRead" value="true" @checkRead />
+                        <input name="tblUserRoles[@i].IsRead" type="hidden" value="false" />
+                    </td>
+                    <td>
+                        @{var checkUpdate = Model[i].IsUpdate == true ? "checked" : "";}
+                        <input type="checkbox" id="tblUserRoles[@i].IsUpdate" name="tblUserRoles[@i].IsUpdate" value="true" @checkUpdate />
+                        <input name="tblUserRoles[@i].IsUpdate" type="hidden" value="false" />
+                    </td>
+                    <td>
+                        @{var checkDelete = Model[i].IsDelete == true ? "checked" : "";}
+                        <input type="checkbox" id="tblUserRoles[@i].IsDelete" name="tblUserRoles[@i].IsDelete" value="true" @checkDelete />
+                        <input name="tblUserRoles[@i].IsDelete" type="hidden" value="false" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+

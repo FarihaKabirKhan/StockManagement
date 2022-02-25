@@ -1,0 +1,184 @@
+﻿@model StockManagement.Models.tblSale
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="col-md-12">
+        <div id="boxDivId" class="box box-info box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title" style="text-align:center">
+                    <span style="clear:both;">
+                        <b>
+                            Sales : Edit Sales
+                        </b>
+                    </span>
+                </h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.salesID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.productID, "productID", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                            @Html.DropDownList("productID", null, htmlAttributes: new { @class = "form-control", @id = "pID", onchange = "getPrice()" })
+                            @Html.ValidationMessageFor(model => model.productID, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.customerID, "customerID", htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.DropDownList("customerID", null, htmlAttributes: new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.customerID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Product Status</label>
+                            @Html.EditorFor(model => model.productStatus, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.productStatus, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Quantity</label>
+                            @Html.EditorFor(model => model.quantity, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly",@id = "qty", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.quantity, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Rate</label>
+                            @Html.EditorFor(model => model.rate, new { htmlAttributes = new { @class = "form-control", @id = "price", @readonly = "readonly", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.rate, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Total Price</label>
+                            @Html.EditorFor(model => model.totalPrice, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @id = "total", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.totalPrice, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Purchase Date</label>
+                            @Html.EditorFor(model => model.purchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.purchaseDate, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Vat</label>
+                            @Html.EditorFor(model => model.vat, new { htmlAttributes = new { @class = "form-control", @id = "vat", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.vat, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Discount</label>
+                            @Html.EditorFor(model => model.discount, new { htmlAttributes = new { @class = "form-control", @id = "discount", onchange = "getTotal()" } })
+                            @Html.ValidationMessageFor(model => model.discount, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Net Total</label>
+                            @Html.EditorFor(model => model.netTotal, new { htmlAttributes = new { @class = "form-control", @id = "NetTotal" } })
+                            @Html.ValidationMessageFor(model => model.netTotal, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Transaction Type</label>
+                            @Html.EditorFor(model => model.transactionType, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.transactionType, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Transaction Date</label>
+                            @Html.EditorFor(model => model.transactionDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.transactionDate, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-4">
+                        <div class="form-group">
+                            <label for="txtDescriptionSlave" class="col-form-label">Invoice No</label>
+                            @Html.EditorFor(model => model.invoiceNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.invoiceNo, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-2">
+                        <a class="form-group btn btn-danger btn-block fa fa-arrow-circle-left" href="/Sales/Index"><span> Back</span></a>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <button class="form-group btn btn-primary btn-block" value="Save" type="submit" id="btnPRsave">
+                            <i class="fa fa-plus"></i>
+                            <span>Update Sale</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index", new { @class = "btn btn-info" }) 
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    function getTotal() {
+        var price = document.getElementById("price").value;
+        var qty = document.getElementById("qty").value;
+        var total = price * qty;
+        document.getElementById("total").value = total;
+        var vat = document.getElementById("vat").value;
+        var nVat = (vat / 100);
+        var discount = document.getElementById("discount").value;
+        var NetTotal = (total + nVat) - discount;
+        document.getElementById("NetTotal").value = NetTotal;
+    }
+</script>

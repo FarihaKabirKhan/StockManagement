@@ -1,0 +1,103 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<StockManagement.Models.tblWarehouse>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div>
+    @using (Html.BeginForm("Index", "Warehouses", FormMethod.Get))
+    {
+        <b>Search By:</b> @Html.RadioButton("searchBy", "warehouseName", true) <text>Warehouse Name</text>
+        @Html.RadioButton("searchBy", "warehouseManager") <text>Warehouse Manager</text>
+        <div class="pull-right" style="">
+            @Html.TextBox("search", null, new { id = "txtSearch", placeholder = "Search.." }) 
+            <button type="submit" value="Search" style="background: #2196F3; color: white; font-size: 17px; border: 1px solid grey; border-left: none; "><i class="fa fa-search"></i></button>
+        </div>
+    }
+</div>
+<br />
+<br />
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+
+<br />
+<br />
+<div class="col-sm-12">
+    <a href="/Warehouses/Create" id="createCustomer" class="btn btn-info "><i class="fa fa-plus"></i> New Warehouse</a>
+</div>
+<hr />
+
+@{
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table border="1" class="table table-bordered table-hover table-striped table-responsive">
+                            <thead>
+                                <tr style="font-size:16px">
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.First().warehouseNo)
+                                    </th>
+                                    <th>
+                                        @Html.ActionLink("warehouseName", "Index", new { sortBy = ViewBag.SortNameParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })
+                                    </th>
+                                    <th>
+                                        @Html.ActionLink("warehouseManager", "Index", new { sortBy = ViewBag.SortNameParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.First().address)
+                                    </th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            @*//For Search*@
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="6" class="bg-danger text-center">No Rows Match for Search criteria</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.warehouseNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.warehouseName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.warehouseManager)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.address)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(" Edit", "Edit", new { id = item.warehouseID }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                            @Html.ActionLink(" Details", "Details", new { id = item.warehouseID }, new { @class = "btn btn-success fa fa-info" }) |
+                                            @Html.ActionLink(" Delete", "Delete", new { id = item.warehouseID }, new { @class = "btn btn-danger fa fa-trash-o" })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@*//For Pagination*@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request["sortBy"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })

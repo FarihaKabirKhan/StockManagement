@@ -1,0 +1,50 @@
+﻿@model StockManagement.Models.tblStock
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tblStock</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblProduct.productName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblProduct.productName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblPurchase.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblPurchase.description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.stockID }, new { @class = "btn btn-primary" }) |*@
+    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-warning" })
+</p>

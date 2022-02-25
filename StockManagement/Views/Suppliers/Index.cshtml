@@ -1,0 +1,124 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<StockManagement.Models.tblSupplier>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="~/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#txtSearch").autocomplete({
+            source: '@Url.Action("GetSuppliers")'
+
+        });
+    });
+</script>
+
+<div>
+    @using (Html.BeginForm("Index", "Suppliers", FormMethod.Get))
+    {
+        <b>Search By:</b> @Html.RadioButton("searchBy", "supplierName", true) <text>Supplier Name</text>
+        @Html.RadioButton("searchBy", "managerName") <text>Manager Number</text>
+        <div class="pull-right">
+            @Html.TextBox("search", null, new { id = "txtSearch", placeholder = "Search.." })
+            <button type="submit" value="Search" style="background: #2196F3; color: white; font-size: 17px; border: 1px solid grey; border-left: none; "><i class="fa fa-search"></i></button>
+        </div>
+    }
+</div>
+<br />
+<br />
+
+@Html.ActionLink(" Excel", "Reports", new { ReportType = "Excel" }, new { @class = " btn btn-success fa fa-file-excel-o" }) |
+@Html.ActionLink(" PDF", "Reports", new { ReportType = "PDF" }, new { @class = " btn btn-success fa fa-file-pdf-o" }) |
+@Html.ActionLink(" Word", "Reports", new { ReportType = "Word" }, new { @class = " btn btn-success fa fa-file-word-o" }) |
+@Html.ActionLink(" Image", "Reports", new { ReportType = "Image" }, new { @class = " btn btn-success fa fa-picture-o" })
+
+<br />
+<br />
+<div class="col-md-12">
+    <a href="/Suppliers/Create" class="btn btn-info "><i class="fa fa-plus"></i> New Supplier</a>
+</div>
+<hr />
+
+@{
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table border="1" class="table table-bordered table-hover table-striped table-responsive cell-border">
+                            <tr style="font-size:16px">
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.First().supplierName)*@
+                                    @Html.ActionLink("supplierName", "Index", new { sortBy = ViewBag.SortNameParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().mobileNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().address)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.First().balance)
+                                </th>
+                                <th>
+                                    @*@Html.DisplayNameFor(model => model.First().managerName)*@
+                                    @Html.ActionLink("managerName", "Index", new { sortBy = ViewBag.SortManagerParameter, searchBy = Request.QueryString["searchBy"], search = Request["search"] })
+                                </th>
+                                <th>Action</th>
+                            </tr>
+
+                            @*//For Search*@
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="6" class="bg-danger text-center">No Rows Match for Search criteria</td>
+                                </tr>
+                            }
+
+                            else
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.supplierName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.mobileNumber)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.address)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.balance)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.managerName)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(" Edit", "Edit", new { id = item.supplierID }, new { @class = "btn btn-primary fa fa-pencil" }) |
+                                            @Html.ActionLink(" Details", "Details", new { id = item.supplierID }, new { @class = "btn btn-info fa fa-info" }) |
+                                            @Html.ActionLink(" Delete", "Delete", new { id = item.supplierID }, new { @class = "btn btn-danger fa fa-trash-o" })
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@*//For Pagination*@
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request["sortBy"] }),
+    new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+
